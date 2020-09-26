@@ -1,6 +1,7 @@
 #include <iostream>
 #include <unistd.h>
 using namespace std;
+
 int main()
 {
     auto pid{fork()};
@@ -8,14 +9,14 @@ int main()
         while (true)
         {
             cout << "A" << endl;
-            sleep(1);
+            sleep(0.5);
         }
     }
 
     else {
         while (true) {
             cout << "B" << endl;
-            sleep(1);
+            sleep(0.5);
         }
     }
 }
