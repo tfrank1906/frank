@@ -10,12 +10,12 @@ using namespace std;
 int main() {
     auto pid{fork()};
     if (pid == 0) {
-        while (true)
-        {
-            cout << "A" << endl;
-            chrono::milliseconds sleeptime(500);
-            this_thread::sleep_for(sleeptime);
-        }
+        execl("/home/tobias/01_processes/build/charout", "charout",
+              "a", nullptr);
+              if(errno == -1) {
+                  cout << "Nicht erfolgreich!" << endl;
+                  quick_exit(123);
+              }
 
     }
 
