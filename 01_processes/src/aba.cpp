@@ -7,9 +7,7 @@
 
 using namespace std;
 
-int main()
-
-{
+int main() {
     auto pid{fork()};
     if (pid == 0) {
         while (true)
@@ -27,7 +25,7 @@ int main()
             chrono::milliseconds sleeptime(500);
             this_thread::sleep_for(sleeptime);
         }
-        
+
        kill(0, SIGKILL);
        int status;
        waitpid(0, &status, 0);
