@@ -10,9 +10,9 @@ using namespace std;
 int main() {
     auto pid{fork()};
     if (pid == 0) {
-        execl("/home/tobias/01_processes/build/charout", "charout",
+        execl("/home/tobias/01_processes/build/charoutt", "charout",
               "a", nullptr);
-              if(errno == -1) {
+              if(errno == 2) {
                   cout << "Nicht erfolgreich!" << endl;
                   quick_exit(123);
               }
