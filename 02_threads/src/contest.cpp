@@ -6,7 +6,7 @@ void Golf6() {
     int i = 1;
     while (true)
     {
-        cout << i << " Golf6" << endl;
+        cout << to_string(i) << " Golf6\n";
         this_thread::sleep_for(1s);
         i++;
     }
@@ -14,14 +14,14 @@ void Golf6() {
 class Car {
 private:
     string carName;
-    int runden;
+  
 
 public:
     void operator()() {
         int j = 1;
         while (true)
         {
-            cout << j << " " << carName << endl;
+            cout << to_string(j) << " " << carName << "\n";
             this_thread::sleep_for(1s);
             j++;
         }
