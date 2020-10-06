@@ -1,9 +1,12 @@
 #include <iostream>
 #include <thread>
 #include <random>
+#include <iomanip>
+#include <sstream>
 using namespace std;
 
 void Golf6() {
+    ostringstream bufstr;
     int i = 1;
     random_device rd;
     mt19937 gen{rd()};
@@ -13,18 +16,21 @@ void Golf6() {
     while (true)
     {
         time = dis(gen);
-        cout << to_string(i) << " " <<  " Golf6 " << time << "\n";
+        bufstr << to_string(i) << " " << " Golf6 " << " " << setprecision(3)   << time << endl;
+        cout << bufstr.str();
         this_thread::sleep_for(chrono::milliseconds(static_cast<int>(time*1000)));      
         i++;
+        bufstr.str(""); 
     }
 }
+
 
 class Car {
 private:
     string carName;
-  
-public:
+  public:
     void operator()() {
+        ostringstream bufstr;
         int j = 1;
         random_device rd;
         mt19937 gen{rd()};
@@ -35,9 +41,12 @@ public:
         while (true)
         {
             time = dis(gen);
-            cout << to_string(j) << " " << carName << " " << time << "\n";
+        
+            bufstr << to_string(j) << " " << carName << " " << setprecision(3)   << time << endl;
+            cout << bufstr.str();
             this_thread::sleep_for(chrono::milliseconds(static_cast<int>(time*1000)));
             j++;
+            bufstr.str(""); 
         }
     }
 
