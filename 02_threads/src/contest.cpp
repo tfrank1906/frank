@@ -1,28 +1,42 @@
 #include <iostream>
 #include <thread>
+#include <random>
 using namespace std;
 
 void Golf6() {
     int i = 1;
+    random_device rd;
+    mt19937 gen{rd()};
+    uniform_real_distribution<> dis{1, 10};
+    double time{};
+
     while (true)
     {
-        cout << to_string(i) << " Golf6\n";
-        this_thread::sleep_for(1s);
+        time = dis(gen);
+        cout << to_string(i) << " " <<  " Golf6 " << time << "\n";
+        this_thread::sleep_for(chrono::milliseconds(static_cast<int>(time*1000)));      
         i++;
     }
 }
+
 class Car {
 private:
     string carName;
   
-
 public:
     void operator()() {
         int j = 1;
+        random_device rd;
+        mt19937 gen{rd()};
+        uniform_real_distribution<> dis{1, 10};
+        double time{};
+    
+
         while (true)
         {
-            cout << to_string(j) << " " << carName << "\n";
-            this_thread::sleep_for(1s);
+            time = dis(gen);
+            cout << to_string(j) << " " << carName << " " << time << "\n";
+            this_thread::sleep_for(chrono::milliseconds(static_cast<int>(time*1000)));
             j++;
         }
     }
