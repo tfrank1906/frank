@@ -10,9 +10,8 @@ int Account::get_balance(){
 }
 
 void Account::deposit(int amount){
-    int tmo{balance};
-    std::this_thread::sleep_for(10ms);
-    balance = tmp + amount;
+    unique_lock<mutex> lock(mtx, defer_lock);
+    balance += amount;
 }
 
 bool Account::withdraw(int amount){

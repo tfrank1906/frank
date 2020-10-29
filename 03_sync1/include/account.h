@@ -1,9 +1,12 @@
 #ifndef ACCOUNT_H
 #define ACCOUNT_H
 
+#include <mutex>
+using namespace std;
 class Account {
     private:
         int balance{0};
+        mutex mtx;
     public:
         int get_balance();
 
@@ -17,13 +20,14 @@ class Account {
 class Depositer {
     private:
     Account& acc;
+    int deposits;
 
     public:
-        Depositer(Account& a) : acc(a){
+        Depositer(Account& a, int depos) : acc(a), deposits(depos){
 
         }
         void operator()() {
-            for(int i = 0; i < 5; i++) {
+            for(int i = 0; i < deposits; i++) {
                 acc.deposit(1);
             }
         }

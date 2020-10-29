@@ -41,7 +41,7 @@ int main(){
   t2.join();
   */
 
-Depositer depo{a};
+Depositer depo(a, 5);
 
 thread t1(ref(depo));
 
