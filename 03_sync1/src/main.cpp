@@ -16,7 +16,7 @@ int main(){
    cout << a.get_balance() << endl;
 
    //Punkt 1
-   /*
+   
    Account a;
    cout << a.get_balance() << endl;
 
@@ -40,6 +40,19 @@ int main(){
   t1.join();
   t2.join();
   */
+
+Depositer depo{a};
+
+thread t1(ref(depo));
+
+thread t2(ref(depo));
+
+t1.join();
+t2.join();
+
+
+cout << a.get_balance() << endl;
+
 
 
 
