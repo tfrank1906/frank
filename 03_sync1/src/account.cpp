@@ -13,7 +13,7 @@ void Account::deposit(int amount){
 }
 
 bool Account::withdraw(int amount){
-    if (balance - amount > 0) {
+    if (balance - amount >= 0) {
         balance -= amount;
         return true;
     }
