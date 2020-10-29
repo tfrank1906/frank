@@ -14,6 +14,7 @@ void Account::deposit(int amount){
 
 bool Account::withdraw(int amount){
     if (balance - amount >= 0) {
+        this_thread::yield();
         balance -= amount;
         return true;
     }
