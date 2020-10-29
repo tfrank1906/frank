@@ -7,6 +7,9 @@ using namespace std;
 
 int main(){
    Account a;
+   
+   /*
+   Punkt 5
    cout << a.get_balance() << endl;
 
    a.deposit(1);
@@ -27,11 +30,16 @@ int main(){
    cout << a.get_balance() << endl;
    */
 
+  
+  
+  /*
+  Punkt 5
   thread t1{[&]  {cout << a.withdraw(1) << endl;}};
   thread t2{[&]  {cout << a.withdraw(1) << endl;}};
  
   t1.join();
   t2.join();
+  */
 
 
 

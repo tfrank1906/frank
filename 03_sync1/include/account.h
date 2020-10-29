@@ -14,4 +14,20 @@ class Account {
 
 };
 
+class Depositer {
+    private:
+    Account& acc;
+
+    public:
+        Depositer(Account& a) : acc(a){
+
+        }
+        void operator()() {
+            for(int i = 0; i <= 5; i++) {
+                acc.deposit(1);
+            }
+        }
+
+};
+
 #endif
