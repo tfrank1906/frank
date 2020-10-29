@@ -2,13 +2,32 @@
 #include <thread>
 
 #include "account.h"
+#include "CLI11.hpp"
 
 using namespace std;
 
-int main(){
-   Account a;
-   
-   /*
+int main(int argc, char *argv[])
+{
+
+  CLI::App app("Account app");
+  int balance{0};
+  app.add_option("balance", balance, "Initial balance")->required();
+  int deposits{5};
+  app.add_option("-d,--deposits", deposits, "Count of deposits", true);
+  CLI11_PARSE(app, argc, argv);
+  Account a{balance};
+  Depositer depo(a, deposits);
+
+  thread t1(ref(depo));
+
+  thread t2(ref(depo));
+
+  t1.join();
+  t2.join();
+
+  cout << a.get_balance() << endl;
+
+  /*
    Punkt 5
    cout << a.get_balance() << endl;
 
@@ -30,8 +49,6 @@ int main(){
    cout << a.get_balance() << endl;
    */
 
-  
-  
   /*
   Punkt 5
   thread t1{[&]  {cout << a.withdraw(1) << endl;}};
@@ -40,20 +57,6 @@ int main(){
   t1.join();
   t2.join();
   */
-
-Depositer depo(a, 5);
-
-thread t1(ref(depo));
-
-thread t2(ref(depo));
-
-t1.join();
-t2.join();
-
-
-cout << a.get_balance() << endl;
-
-
 
 
 }

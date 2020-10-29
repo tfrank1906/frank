@@ -5,6 +5,10 @@
 
 using namespace std;
 
+Account::Account(int amount){
+    balance = amount;
+}
+
 int Account::get_balance(){
     return this->balance;
 }

@@ -8,6 +8,7 @@ class Account {
         int balance{0};
         mutex mtx;
     public:
+        Account(int amount);
         int get_balance();
 
         void deposit(int amount);
