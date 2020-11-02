@@ -15,7 +15,7 @@ class WorkQueue {
 
         WorkPacket push(WorkPacket wp);
         
-        void pop();
+        WorkPacket pop();
 
     
 };
