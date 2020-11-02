@@ -7,7 +7,7 @@ project('04_sync2', 'cpp',
 
 inc_dir = include_directories('include')
 
-src = ['src/main.cpp', 'src/work_queue.cpp']
+src = ['src/loadsim.cpp', 'src/work_queue.cpp']
 
 executable('WorkPacket',
             sources : src,     
