@@ -9,15 +9,15 @@
 WorkQueue::WorkQueue(){}
 
 WorkPacket WorkQueue::push(WorkPacket wp){
-    mutex m;
-    lock_guard<mutex> guard{m};
+
+    lock_guard<mutex> guard{mtx};
     WQ.push(wp);
     return wp;
 }
 
 WorkPacket WorkQueue::pop(){
-    mutex m;
-    lock_guard<mutex> guard{m};
+   
+    lock_guard<mutex> guard{mtx};
     WorkPacket wp = WQ.front();
     WQ.pop();
     return wp;
