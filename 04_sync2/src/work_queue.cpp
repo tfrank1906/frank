@@ -6,19 +6,23 @@
 #include "work_queue.h"
 
 
-WorkQueue::WorkQueue(){}
+
 
 WorkPacket WorkQueue::push(WorkPacket wp){
 
-    lock_guard<mutex> guard{mtx};
+    unique_lock<mutex> lck{mtx};
+    pushcond.wait(lck, [this]{return WQ.size() < size;});
     WQ.push(wp);
+    popcond.notify_one();
     return wp;
 }
 
 WorkPacket WorkQueue::pop(){
    
-    lock_guard<mutex> guard{mtx};
+    unique_lock<mutex> lck{mtx};
+    popcond.wait(lck, [this]{return WQ.size();});
     WorkPacket wp = WQ.front();
     WQ.pop();
+    pushcond.notify_one();
     return wp;
 }

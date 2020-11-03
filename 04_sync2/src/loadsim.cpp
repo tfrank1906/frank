@@ -32,13 +32,14 @@ void worker(int id, WorkQueue& q){
 }
 
 int main() {
+  size_t max{5};
   random_device rd;
   mt19937 eng{rd()};
   uniform_real_distribution<> distr(0,1);
   
   double time;
   int i{0};
-  WorkQueue a;
+  WorkQueue a{max};
 
   thread t1{[&]  {worker(1, a);}};
   thread t2{[&]  {worker(2, a);}};
@@ -50,14 +51,14 @@ int main() {
     buf << "B : Waiting to submit work packet " << wp.get_id() << endl;
     a.push(wp);
     this_thread::sleep_for(std::chrono::milliseconds(static_cast<int>(time*1000)));
-    buf << "B: " << ": Submitted work packet " << wp.get_id() << "("  << time << "s)" << endl;
+    buf << "B : Submitted work packet " << wp.get_id() << "("  << time << "s)" << endl;
     cout << buf.str();
     buf.str("");
     i++;
   }
  
   t1.join();
-  //t2.join();
+  t2.join();
 
 
 
