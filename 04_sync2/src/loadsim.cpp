@@ -32,8 +32,8 @@ void worker(int id, WorkQueue& q){
 
 }
 
-int main() {
-  size_t max{5};
+int main(int argc, char* const argv[]) {
+  size_t max;
 
   random_device rd;
   mt19937 eng{rd()};
@@ -41,7 +41,10 @@ int main() {
   double time;
   
   CLI::App app{"Boss and worker Simulation"};
+  app.add_option("size", max, "Size of the queue")->required();
+  CLI11_PARSE(app, argc, argv);
   WorkQueue a{max};
+  
 
   thread t1{[&]  {worker(1, a);}};
   thread t2{[&]  {worker(2, a);}};
