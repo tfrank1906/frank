@@ -4,9 +4,10 @@
 #include <chrono>
 #include <random>
 
-
 #include "work_packet.h"
 #include "work_queue.h"
+#include "CLI11.hpp"
+
 
 using namespace std;
 
@@ -33,18 +34,21 @@ void worker(int id, WorkQueue& q){
 
 int main() {
   size_t max{5};
+
   random_device rd;
   mt19937 eng{rd()};
   uniform_real_distribution<> distr(0,1);
-  
   double time;
-  int i{0};
+  
+  CLI::App app{"Boss and worker Simulation"};
   WorkQueue a{max};
 
   thread t1{[&]  {worker(1, a);}};
   thread t2{[&]  {worker(2, a);}};
+  thread t3{[&]  {worker(3, a);}};
 
   stringstream buf;
+  int i{0};
   while (true) {
     time = distr(eng);
     WorkPacket wp{i};
@@ -59,6 +63,7 @@ int main() {
  
   t1.join();
   t2.join();
+  t3.join();
 
 
 
