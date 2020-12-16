@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <initializer_list>
+#include <chrono>
 #include "philosopher.h"
 #include "utils.h"
 using namespace std;
@@ -18,6 +19,7 @@ void Philosopher::operator()(mutex &fr, mutex &fl)
     println("Philosopher ", to_string(this->number), " attemps to get left fork");
     fl.lock();
     println("Philosopher ", to_string(this->number), " got left fork. Now he wants the right one...");
+    this_thread::sleep_for(chrono::milliseconds(5000));
     fr.lock();
     println("Philosopher ", to_string(this->number), " got right fork. Now he is eating...");
 
