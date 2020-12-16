@@ -1,6 +1,9 @@
 #include <iostream>
 #include <thread>
 #include <mutex>
+#include <vector>
+#include <string>
+
 #include "philosopher.h"
 using namespace std;
 int main() {
@@ -19,8 +22,7 @@ int main() {
     thread p3{Philosopher(3), ref(gabel3), ref(gabel4)};
     thread p4{Philosopher(4), ref(gabel4), ref(gabel5)};
     thread p5{Philosopher(5), ref(gabel5), ref(gabel1)};
-   
-    cout << p1.get_id() << endl;
+
 
 
     p1.join();

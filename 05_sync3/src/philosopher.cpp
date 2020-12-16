@@ -1,24 +1,35 @@
 #include <iostream>
 #include <thread>
 #include <mutex>
+#include <vector>
+#include <string>
 #include "philosopher.h"
+using namespace std;
+mutex out_mtx;
 
-void Philosopher::operator()(mutex &fr, mutex &fl) {
-  while (true) {
-    cout << "Philosopher " << to_string(this->number) << " is thinking.." << endl;
+void Philosopher::operator()(mutex &fr, mutex &fl){
+  while (true){
+    println({"Philosopher ", to_string(this->number), " is thinking.."});
+
     this_thread::sleep_for(chrono::milliseconds(1000));
-
-    cout << "Philosopher " << this->number << " attemps to get left fork" << endl;
+    println({"Philosopher ", to_string(this->number), " attemps to get left fork"});
     fl.lock();
-    cout << "Philosopher " << this->number << " got left fork. Now he wants the right one..." << endl;
+    println({"Philosopher ", to_string(this->number), " got left fork. Now he wants the right one..."});
     fr.lock();
-    cout << "Philosopher " << this->number << " got right fork. Now he is eating..." << endl;
+    println({"Philosopher ", to_string(this->number), " got right fork. Now he is eating..."});
 
     this_thread::sleep_for(chrono::milliseconds(2000));
-    cout << "Philosopher " << this->number << " finished eating" << endl;
+    println({"Philosopher ", to_string(this->number), " finished eating"});
     fr.unlock();
-    cout << "Philosopher " << this->number << " released left fork" << endl;
-    fl.unlock();
-    cout << "Philosopher " << this->number << " released right fork" << endl;
+    println({"Philosopher ", to_string(this->number), " released left fork"});
   }
+}
+void Philosopher::println(const vector<string> &a){
+  lock_guard<mutex> lg{out_mtx};
+
+  for (int i = 0; i < (int)a.size(); i++)
+{
+    cout << a[i];
+  }
+  cout << endl;
 }
