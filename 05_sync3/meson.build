@@ -7,7 +7,7 @@ project('05_sync3', 'cpp',
 
 inc_dir = include_directories('include')
 
-src = ['src/philosopher.cpp']
+src = ['src/dining.cpp', 'src/philosopher.cpp']
 
 executable('dining',
             sources : src,     
