@@ -3,6 +3,7 @@
 #include <mutex>
 #include <vector>
 #include <string>
+#include <initializer_list>
 
 #include "philosopher.h"
 using namespace std;

@@ -3,6 +3,7 @@
 #include <mutex>
 #include <vector>
 #include <string>
+#include <initializer_list>
 #include "philosopher.h"
 using namespace std;
 mutex out_mtx;
@@ -24,12 +25,12 @@ void Philosopher::operator()(mutex &fr, mutex &fl){
     println({"Philosopher ", to_string(this->number), " released left fork"});
   }
 }
-void Philosopher::println(const vector<string> &a){
-  lock_guard<mutex> lg{out_mtx};
-
-  for (int i = 0; i < (int)a.size(); i++)
-{
-    cout << a[i];
-  }
-  cout << endl;
+void Philosopher::println(initializer_list<string> a){
+	
+	for(auto o : a){
+		cout << o;
+	}
+	cout << endl;
+	
+	
 }
