@@ -5,32 +5,26 @@
 #include <string>
 #include <initializer_list>
 #include "philosopher.h"
+#include "utils.h"
 using namespace std;
-mutex out_mtx;
 
-void Philosopher::operator()(mutex &fr, mutex &fl){
-  while (true){
-    println({"Philosopher ", to_string(this->number), " is thinking.."});
+void Philosopher::operator()(mutex &fr, mutex &fl)
+{
+  while (true)
+  {
+    println("Philosopher ", to_string(this->number), " is thinking..");
 
     this_thread::sleep_for(chrono::milliseconds(1000));
-    println({"Philosopher ", to_string(this->number), " attemps to get left fork"});
+    println("Philosopher ", to_string(this->number), " attemps to get left fork");
     fl.lock();
-    println({"Philosopher ", to_string(this->number), " got left fork. Now he wants the right one..."});
+    println("Philosopher ", to_string(this->number), " got left fork. Now he wants the right one...");
     fr.lock();
-    println({"Philosopher ", to_string(this->number), " got right fork. Now he is eating..."});
+    println("Philosopher ", to_string(this->number), " got right fork. Now he is eating...");
 
     this_thread::sleep_for(chrono::milliseconds(2000));
-    println({"Philosopher ", to_string(this->number), " finished eating"});
+    println("Philosopher ", to_string(this->number), " finished eating");
     fr.unlock();
-    println({"Philosopher ", to_string(this->number), " released left fork"});
+    println("Philosopher ", to_string(this->number), " released left fork");
   }
 }
-void Philosopher::println(initializer_list<string> a){
-	
-	for(auto o : a){
-		cout << o;
-	}
-	cout << endl;
-	
-	
-}
+

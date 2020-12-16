@@ -16,9 +16,11 @@ class Philosopher{
             this->number = number;
         }
         void operator()(mutex &fr, mutex &fl);
-        void println(initializer_list<string> a);
+ 
+      
         int get_id(){
             return this->number;
         }
+        
 
 };
