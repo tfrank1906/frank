@@ -6,6 +6,7 @@
 #include <initializer_list>
 #include <chrono>
 #include "philosopher.h"
+#include "semaphore.h"
 #include "utils.h"
 using namespace std;
 

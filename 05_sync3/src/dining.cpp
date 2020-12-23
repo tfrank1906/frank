@@ -6,8 +6,11 @@
 #include <initializer_list>
 
 #include "philosopher.h"
+#include "semaphor.h"
 using namespace std;
 int main() {
+    Semaphore s{5};
+    s.release();
 
     mutex gabel1;
     mutex gabel2;
