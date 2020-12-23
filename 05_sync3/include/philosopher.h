@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include <initializer_list>
+#include "semaphor.h"
 
 using namespace std;
 
@@ -15,7 +16,7 @@ class Philosopher{
         Philosopher(int number){
             this->number = number;
         }
-        void operator()(mutex &fr, mutex &fl);
+        void operator()(mutex &fr, mutex &fl, Semaphore *s);
  
       
         int get_id(){
