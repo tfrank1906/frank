@@ -16,7 +16,7 @@ class Philosopher{
         Philosopher(int number){
             this->number = number;
         }
-        void operator()(mutex &fr, mutex &fl, Semaphore *s);
+        void operator()(mutex &fr, mutex &fl, Semaphore *s, bool live);
  
       
         int get_id(){
