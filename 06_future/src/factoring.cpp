@@ -18,6 +18,18 @@
 
 using namespace std;
 
+void print_res(vector<InfInt> &zahlen, vector<future<vector<InfInt>>> &ergebnisse){
+  vector<InfInt> a;
+  for (size_t i = 0; i < zahlen.size(); i++){
+    cout << zahlen[i] << ": ";
+    a = ergebnisse[i].get();
+    for (size_t j = 0; j < a.size(); j++){
+      cout << a[j] << " ";
+    }
+    cout << endl;
+  }
+}
+
 int main(int argc, const char *argv[])
 {
   vector<string> v1;
@@ -27,22 +39,19 @@ int main(int argc, const char *argv[])
   CLI11_PARSE(app, argc, argv);
 
   vector<InfInt> v2;
-  for (size_t n = 0; n < v1.size(); n++){
+  for (size_t n = 0; n < v1.size(); n++)
+  {
     v2.push_back(v1[n]);
   }
-
-  vector<future<vector<InfInt>>> results;
-  vector<InfInt> a;
   InfInt curr;
-  for (size_t i = 0; i < v2.size(); i++){
+  vector<future<vector<InfInt>>> results;
+  for (size_t i = 0; i < v2.size(); i++)
+  {
     curr = v2[i];
     results.push_back(async(get_factors, curr));
-    cout << curr << ": ";
-    a = results[i].get();
-    for(size_t j = 0; j < a.size(); j++){
-      cout << a[j] << " ";
-    }
-    cout << endl;
   }
+
+  print_res(v2, results);
 }
+
 
