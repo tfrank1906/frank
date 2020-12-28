@@ -16,3 +16,12 @@ void Clock::operator()(){
 
 
 }
+
+void Clock::set_time(int hours, int minutes, int seconds){
+  curr_time = chrono::system_clock::now();
+  curr_time = timeutils::set_time(curr_time, hours, minutes, seconds);
+}
+
+tuple<int, int, int> Clock::get_time(){
+  return timeutils::get_time(this->curr_time);
+}
