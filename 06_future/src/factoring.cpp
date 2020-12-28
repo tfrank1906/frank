@@ -2,6 +2,8 @@
 #include <thread>
 #include <vector>
 #include <string>
+#include <vector>
+#include <future>
 
 #include "CLI11.hpp"
 
@@ -22,27 +24,25 @@ int main(int argc, const char *argv[])
   CLI::App app("factoring");
   app.add_option("number", v1, "numbers to factor");
   app.add_option("--async", v1, "async");
-
   CLI11_PARSE(app, argc, argv);
 
   vector<InfInt> v2;
-
-  for (size_t n = 0; n < v1.size(); n++)
-  {
+  for (size_t n = 0; n < v1.size(); n++){
     v2.push_back(v1[n]);
-  
   }
-  
-  vector<InfInt> vtemp;
+
+  vector<future<vector<InfInt>>> results;
+  vector<InfInt> a;
+  InfInt curr;
   for (size_t i = 0; i < v2.size(); i++){
-    cout << v2[i] << ": ";
-    vtemp = (get_factors(v2[i]));
-  
-    for (size_t j = 0; j < vtemp.size(); j++){
-       cout << vtemp[j] << " ";
+    curr = v2[i];
+    results.push_back(async(get_factors, curr));
+    cout << curr << ": ";
+    a = results[i].get();
+    for(size_t j = 0; j < a.size(); j++){
+      cout << a[j] << " ";
     }
     cout << endl;
   }
-
-  return 0;
 }
+
