@@ -9,7 +9,7 @@
 using namespace std;
 
 int main(){
-  thread clock{Clock("testclock")};
+  thread clock{Clock("testclock" , 5, 5, 5)};
   clock.join();
 
 }

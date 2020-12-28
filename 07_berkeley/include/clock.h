@@ -3,6 +3,7 @@
 #include <thread>
 #include <string>
 #include <chrono>
+#include "timeutils.h"
 
 using namespace std;
 
@@ -15,6 +16,11 @@ class Clock {
     Clock(string name_){
         this->name = name_;
         curr_time = chrono::system_clock::now();
+    }
+    Clock(string name_, int hours_, int minutes_, int seconds_){
+        this->name = name_;
+        curr_time = chrono::system_clock::now();
+        curr_time = set_time(curr_time, hours_, minutes_, seconds_);
     }
 
     void operator()();
