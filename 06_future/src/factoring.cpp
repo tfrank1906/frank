@@ -18,7 +18,7 @@
 
 using namespace std;
 
-void print_res(vector<InfInt> &zahlen, vector<future<vector<InfInt>>> &ergebnisse){
+void print_res(vector<InfInt> &zahlen, vector<shared_future<vector<InfInt>>> &ergebnisse){
   vector<InfInt> a;
   for (size_t i = 0; i < zahlen.size(); i++){
     cout << zahlen[i] << ": ";
@@ -28,6 +28,32 @@ void print_res(vector<InfInt> &zahlen, vector<future<vector<InfInt>>> &ergebniss
     }
     cout << endl;
   }
+}
+
+void check_res(vector<InfInt> &zahlen, vector<shared_future<vector<InfInt>>> &ergebnisse){
+  vector<InfInt> a;
+  InfInt res = 0;
+  InfInt zahl;
+  for (size_t i = 0; i < zahlen.size(); i++){
+    res = 0;
+    zahl = zahlen[i];
+    a = ergebnisse[i].get();
+    for (size_t j = 0; j < a.size(); j++){
+      if(res == 0){
+        res += a[j];
+      }
+      else {
+         res *= a[j];
+      }
+    }
+    if(zahl != res){
+     
+      cerr << "Fehler bei Faktorisierung von Zahl! Es kommt raus: " << res << endl;
+     }
+    
+  }
+
+  
 }
 
 int main(int argc, const char *argv[])
@@ -44,15 +70,17 @@ int main(int argc, const char *argv[])
     v2.push_back(v1[n]);
   }
   InfInt curr;
-  vector<future<vector<InfInt>>> results;
+  vector<shared_future<vector<InfInt>>> results;
   for (size_t i = 0; i < v2.size(); i++)
   {
     curr = v2[i];
-    results.push_back(async(get_factors, curr));
+    results.push_back(async(get_factors, curr).share());
   }
   
   thread t1(print_res, ref(v2), ref(results)); 
+  thread t2(check_res, ref(v2), ref(results)); 
   t1.join();
+  t2.join();
 }
 
 
