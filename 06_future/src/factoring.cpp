@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <future>
+#include <chrono>
 
 #include "CLI11.hpp"
 
@@ -20,6 +21,7 @@ using namespace std;
 
 void print_res(vector<InfInt> &zahlen, vector<shared_future<vector<InfInt>>> &ergebnisse){
   vector<InfInt> a;
+  auto start = chrono::system_clock::now();
   for (size_t i = 0; i < zahlen.size(); i++){
     cout << zahlen[i] << ": ";
     a = ergebnisse[i].get();
@@ -28,6 +30,8 @@ void print_res(vector<InfInt> &zahlen, vector<shared_future<vector<InfInt>>> &er
     }
     cout << endl;
   }
+  auto duration = chrono::duration_cast<chrono::milliseconds>(std::chrono::system_clock::now() - start);
+  cout << "Time elapsed for factoring: " << duration.count() << "ms" << endl;
 }
 
 void check_res(vector<InfInt> &zahlen, vector<shared_future<vector<InfInt>>> &ergebnisse){
@@ -47,13 +51,9 @@ void check_res(vector<InfInt> &zahlen, vector<shared_future<vector<InfInt>>> &er
       }
     }
     if(zahl != res){
-     
       cerr << "Fehler bei Faktorisierung von Zahl! Es kommt raus: " << res << endl;
-     }
-    
+     } 
   }
-
-  
 }
 
 int main(int argc, const char *argv[])
