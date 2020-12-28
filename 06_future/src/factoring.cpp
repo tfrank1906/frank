@@ -50,8 +50,9 @@ int main(int argc, const char *argv[])
     curr = v2[i];
     results.push_back(async(get_factors, curr));
   }
-
-  print_res(v2, results);
+  
+  thread t1(print_res, ref(v2), ref(results)); 
+  t1.join();
 }
 
 
