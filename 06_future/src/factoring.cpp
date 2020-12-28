@@ -56,25 +56,29 @@ void check_res(vector<InfInt> &zahlen, vector<shared_future<vector<InfInt>>> &er
   }
 }
 
-int main(int argc, const char *argv[])
-{
+int main(int argc, const char *argv[]){
+  bool asyncbool{false};
   vector<string> v1;
   CLI::App app("factoring");
   app.add_option("number", v1, "numbers to factor");
-  app.add_option("--async", v1, "async");
+  app.add_option("--async", asyncbool, "async");
   CLI11_PARSE(app, argc, argv);
 
   vector<InfInt> v2;
-  for (size_t n = 0; n < v1.size(); n++)
-  {
+  for (size_t n = 0; n < v1.size(); n++){
     v2.push_back(v1[n]);
   }
   InfInt curr;
   vector<shared_future<vector<InfInt>>> results;
-  for (size_t i = 0; i < v2.size(); i++)
-  {
+  for (size_t i = 0; i < v2.size(); i++){
     curr = v2[i];
-    results.push_back(async(get_factors, curr).share());
+    if(asyncbool){
+      results.push_back(async(launch::async, get_factors, curr).share());
+    }
+    else {
+      results.push_back(async(get_factors, curr).share());
+    }
+    
   }
   
   thread t1(print_res, ref(v2), ref(results)); 
