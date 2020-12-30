@@ -3,28 +3,54 @@
 #include <string>
 #include <chrono>
 
+
 #include "clock.h"
 #include "timeutils.h"
 
+
 using namespace std;
 
-class TimeSlave{
+class TimeSlave
+{
 private:
   string Rechnername;
-  chrono::time_point<chrono::system_clock> start_time;
+  Clock c;
 
 public:
-  TimeSlave(string Rechnername_, chrono::time_point<chrono::system_clock> start_time_){
-    this->Rechnername = Rechnername_;
-    this->start_time = start_time_;
+  TimeSlave(string Rechnername_, int hours, int minutes, int seconds): c(Rechnername_, hours, minutes, seconds)
+  {
   }
-  void operator()(){
- 
+    void operator()()
+    {
+      c(); 
   }
-}
-
 };
-int main(){
-  thread clock{Clock("testclock", 5, 5, 5)};
-  clock.join();
+
+class TimeMaster
+{
+private:
+  string Rechnername;
+  Clock c;
+
+public:
+  TimeMaster(string Rechnername_, int hours, int minutes, int seconds): c(Rechnername_, hours, minutes, seconds)
+  {
+  }
+    void operator()()
+    {
+      c(); 
+  }
+};
+
+
+int main()
+{
+  //thread clock{Clock("testclock", 5, 5, 5)};
+  thread slave1{TimeSlave("slave1", 5, 5, 5)};
+  thread slave2{TimeSlave("slave2", 6, 6, 6)};
+  thread master{TimeMaster("master", 6, 6, 6)};
+  
+  //clock.join();
+  slave1.join();
+  slave2.join();
 }

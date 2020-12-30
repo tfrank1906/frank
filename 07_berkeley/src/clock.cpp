@@ -1,15 +1,18 @@
 #include <iostream>
 #include <thread>
 #include <chrono>
-
+#include "utils.h"
 #include "clock.h"
 #include "timeutils.h"
 
+mutex mtx;
 using namespace std;
 
 void Clock::operator()(){
   while(true){
+    mtx.lock();
     cout << name << ": " << curr_time << endl;
+    mtx.unlock();
     curr_time += 1s;
     this_thread::sleep_for(1s);
   }

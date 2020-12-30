@@ -8,7 +8,7 @@ project('07_berkeley', 'cpp',
 inc_dir = include_directories('include')
 
 src = ['src/clock.cpp', 'src/main.cpp']
-add_global_arguments('-I' + get_option('cli11_include_dir'), language : 'cpp')
+
 executable('clock',
             sources : src,     
             dependencies : thread_dep,
