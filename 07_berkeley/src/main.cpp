@@ -7,6 +7,7 @@
 #include "clock.h"
 #include "timeutils.h"
 #include "pipe.h"
+#include "CLI11.hpp"
 
 using namespace std;
 
